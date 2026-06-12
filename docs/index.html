@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furn Fawz Preview</title>
+    <style>
+        :root {
+            --bg: #f6f7f2;
+            --surface: #ffffff;
+            --text: #24231f;
+            --muted: #666b61;
+            --primary: #a65326;
+            --primary-soft: #ffe1cc;
+            --accent: #2f6f65;
+            --border: #dedfd7;
+            --radius: 8px;
+            --max-width: 1180px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.5;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .container {
+            width: min(100%, var(--max-width));
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .site-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.04);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .logo {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .main-nav a {
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 0.85rem;
+            border: 1px solid transparent;
+            border-radius: 999px;
+        }
+        .main-nav a:hover {
+            border-color: var(--border);
+            background: #f7f8f4;
+            color: var(--primary);
+        }
+        .cart-count {
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 0.15rem 0.6rem;
+            font-size: 0.9rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, #fff8f1 0%, #edf5ef 100%);
+            padding: 3rem 0;
+        }
+        .hero-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .eyebrow {
+            margin: 0 0 0.75rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            line-height: 1.05;
+        }
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+        .page-copy,
+        .muted {
+            color: var(--muted);
+        }
+        .hero-actions,
+        .product-footer,
+        .chips {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 0.9rem 1.4rem;
+            font-weight: 700;
+        }
+        .button-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .button-secondary {
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+        .hero-summary {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+        .hero-summary div {
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.1rem;
+            border: 1px solid rgba(47, 111, 101, 0.22);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.74);
+        }
+        .hero-summary span {
+            color: var(--accent);
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .search-panel,
+        .menu-section,
+        .checkout-preview {
+            padding: 1.5rem 0;
+        }
+        .search-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .search-form input {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+        }
+        .chip.active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .menu-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+        .product-card,
+        .cart-card,
+        .checkout-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .product-image {
+            min-height: 190px;
+            aspect-ratio: 4 / 3;
+            display: grid;
+            place-items: center;
+            color: var(--accent);
+            background: linear-gradient(135deg, #f8efe2 0%, #e4efe8 100%);
+        }
+        .product-image span {
+            width: 72px;
+            height: 72px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(47, 111, 101, 0.25);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.74);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .product-body,
+        .cart-card,
+        .checkout-card {
+            padding: 1.2rem;
+        }
+        .product-category {
+            margin: 0;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .price {
+            font-weight: 700;
+        }
+        .availability-pill {
+            min-height: 32px;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
+            background: #e8f2ee;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .cart-preview,
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 1.2rem;
+        }
+        .cart-row,
+        .summary-row,
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .summary-total {
+            border-bottom: 0;
+            font-weight: 700;
+        }
+        .field {
+            display: grid;
+            gap: 0.35rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: #fff;
+            font: inherit;
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1rem;
+            color: var(--muted);
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .hero-panel,
+            .cart-preview,
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+            .menu-heading,
+            .header-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+            .search-form,
+            .hero-summary {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+            .product-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="#">Furn Fawz</a>
+            <nav class="main-nav" aria-label="Preview navigation">
+                <a href="#menu">Menu</a>
+                <a href="#cart">Cart <span class="cart-count">3</span></a>
+                <a href="#checkout">Checkout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-panel">
+                <div>
+                    <p class="eyebrow">Fresh from the oven</p>
+                    <h1>Furn Fawz</h1>
+                    <p class="page-copy">Warm manakish, sweet crepes, soft kaak, and cold drinks prepared for fast everyday ordering.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#menu">View menu</a>
+                        <a class="button button-secondary" href="#checkout">Preview checkout</a>
+                    </div>
+                </div>
+                <aside class="hero-summary" aria-label="Menu summary">
+                    <div>
+                        <span>8</span>
+                        <p>Available items</p>
+                    </div>
+                    <div>
+                        <span>4</span>
+                        <p>Categories</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="search-panel" id="menu">
+            <div class="container">
+                <form class="search-form">
+                    <input type="search" placeholder="Search manakish, crepes, drinks" aria-label="Search menu">
+                    <a class="button button-primary" href="#menu">Search</a>
+                </form>
+                <div class="chips">
+                    <span class="chip active">All</span>
+                    <span class="chip">Manakish</span>
+                    <span class="chip">Crepes</span>
+                    <span class="chip">Kaak</span>
+                    <span class="chip">Drinks</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="container">
+                <div class="menu-heading">
+                    <div>
+                        <p class="eyebrow">Menu</p>
+                        <h2>Choose your favorites</h2>
+                    </div>
+                    <p class="page-copy">Static front-end preview</p>
+                </div>
+                <div class="product-grid">
+                    <article class="product-card">
+                        <div class="product-image"><span>CM</span></div>
+                        <div class="product-body">
+                            <p class="product-category">Manakish</p>
+                            <h3>Cheese Manakish</h3>
+                            <p class="muted">Fresh cheese manakish with zaatar crust.</p>
+                            <div class="product-footer">
+                                <span class="price">AED 6.00</span>
+                                <span class="availability-pill">Available</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image"><span>NC</span></div>
+                        <div class="product-body">
+                            <p class="product-category">Crepes</p>
+                            <h3>Nutella Crepe</h3>
+                            <p class="muted">Warm crepe with Nutella and banana.</p>
+                            <div class="product-footer">
+                                <span class="price">AED 8.50</span>
+                                <span class="availability-pill">Available</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image"><span>KC</span></div>
+                        <div class="product-body">
+                            <p class="product-category">Kaak</p>
+                            <h3>Kaak with Cheese</h3>
+                            <p class="muted">Soft kaak bread stuffed with cheese.</p>
+                            <div class="product-footer">
+                                <span class="price">AED 5.50</span>
+                                <span class="availability-pill">Available</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section" id="cart">
+            <div class="container cart-preview">
+                <div class="cart-card">
+                    <p class="eyebrow">Your order</p>
+                    <h2>Cart</h2>
+                    <div class="cart-row">
+                        <span>2 x Cheese Manakish</span>
+                        <strong>AED 12.00</strong>
+                    </div>
+                    <div class="cart-row">
+                        <span>1 x Nutella Crepe</span>
+                        <strong>AED 8.50</strong>
+                    </div>
+                </div>
+                <aside class="cart-card">
+                    <h2>Summary</h2>
+                    <div class="summary-row">
+                        <span>Items</span>
+                        <span>3</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>AED 20.50</span>
+                    </div>
+                    <a class="button button-primary" href="#checkout">Checkout</a>
+                </aside>
+            </div>
+        </section>
+
+        <section class="checkout-preview" id="checkout">
+            <div class="container checkout-grid">
+                <form class="checkout-card">
+                    <p class="eyebrow">Final step</p>
+                    <h2>Checkout</h2>
+                    <label class="field">
+                        Full name
+                        <input type="text" value="Customer Name">
+                    </label>
+                    <label class="field">
+                        Phone number
+                        <input type="tel" value="+961 00 000 000">
+                    </label>
+                    <label class="field">
+                        Delivery address
+                        <input type="text" value="Street, city">
+                    </label>
+                    <label class="field">
+                        Note
+                        <textarea>Extra napkins please.</textarea>
+                    </label>
+                    <a class="button button-primary" href="#">Place order</a>
+                </form>
+                <aside class="checkout-card">
+                    <h2>WhatsApp Handoff</h2>
+                    <p class="muted">The PHP version saves the order to MySQL, then opens WhatsApp with the full order message.</p>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>AED 20.50</span>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Static front-end preview. The real app needs PHP and MySQL hosting.
+    </footer>
+</body>
+</html>

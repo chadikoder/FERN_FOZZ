@@ -146,6 +146,34 @@ Checkout:     http://127.0.0.1:8000/public/checkout.php
 Admin:        http://127.0.0.1:8000/admin/login.php
 ```
 
+## Static Front-End Preview On GitHub Pages
+
+GitHub Pages cannot run the PHP/MySQL app, but it can show a static front-end preview for design inspection.
+
+This repo includes:
+
+```text
+docs/index.html
+```
+
+To enable the preview link:
+
+1. Open the repository on GitHub.
+2. Go to `Settings`.
+3. Open `Pages`.
+4. Under `Build and deployment`, choose `Deploy from a branch`.
+5. Branch: `main`.
+6. Folder: `/docs`.
+7. Save.
+
+After GitHub builds it, the preview link should be:
+
+```text
+https://chadikoder.github.io/FERN_FOZZ/
+```
+
+Use that link only for visual inspection. Real ordering needs PHP/MySQL hosting.
+
 ## Testing
 
 PHP syntax check:
