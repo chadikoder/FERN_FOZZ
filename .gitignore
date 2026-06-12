@@ -1,0 +1,18 @@
+# Runtime uploads
+public/uploads/products/*
+!public/uploads/products/README.md
+
+# Local/runtime files
+*.log
+*.tmp
+temp*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Dependencies, if added later
+vendor/
+node_modules/

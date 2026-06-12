@@ -1,0 +1,61 @@
+-- Furn Fawz database schema
+
+CREATE TABLE IF NOT EXISTS admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(120) NOT NULL,
+    slug VARCHAR(150) NOT NULL UNIQUE,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    slug VARCHAR(180) NOT NULL UNIQUE,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    image_path VARCHAR(255),
+    is_available TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(120) NOT NULL,
+    customer_phone VARCHAR(40) NOT NULL,
+    customer_address VARCHAR(255) NOT NULL,
+    customer_note TEXT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    status VARCHAR(30) NOT NULL DEFAULT 'whatsapp_pending',
+    whatsapp_message TEXT,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    product_name VARCHAR(150) NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    line_total DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    value TEXT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
