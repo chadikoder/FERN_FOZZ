@@ -1,6 +1,6 @@
 <?php
 return [
-    'app_name' => 'Furn Fawz',
-    'owner_phone' => '971501234567',
-    'base_url' => '', // set your base URL if needed
+    'app_name' => getenv('APP_NAME') ?: 'Furn Fawz',
+    'owner_phone' => getenv('OWNER_PHONE') ?: '971501234567',
+    'base_url' => getenv('APP_BASE_URL') ?: '',
 ];

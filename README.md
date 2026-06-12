@@ -159,3 +159,69 @@ JavaScript syntax check:
 ```powershell
 node --check public\assets\js\app.js
 ```
+
+## Real Customer Deployment
+
+GitHub Pages cannot run this project because the app needs PHP sessions, MySQL, and server-side order saving. Use PHP hosting, cPanel hosting, or a VPS.
+
+Production checklist:
+
+1. Upload or clone this repository on the server.
+
+2. Create a production MySQL database.
+
+3. Import:
+
+   ```text
+   database/schema.sql
+   database/seed.sql
+   ```
+
+4. Configure real server values using hosting environment variables when possible:
+
+   ```text
+   APP_NAME
+   APP_BASE_URL
+   OWNER_PHONE
+   DB_HOST
+   DB_NAME
+   DB_USER
+   DB_PASS
+   DB_CHARSET
+   ```
+
+   See `.env.example` for names and example values. The `.env` file is ignored by git.
+
+5. If your hosting does not support environment variables, update:
+
+   ```text
+   config/app.php
+   config/database.php
+   ```
+
+6. Point the domain to the project root. The included `.htaccess` redirects `/` to `/public/index.php` and blocks direct access to private folders.
+
+7. Confirm these URLs:
+
+   ```text
+   https://yourdomain.com
+   https://yourdomain.com/admin/login.php
+   ```
+
+8. Change the demo admin password before customers use the site:
+
+   ```bash
+   php scripts/reset_admin_password.php admin@furnfawz.com YourNewStrongPassword
+   ```
+
+9. Update the WhatsApp owner number in the database `settings.owner_phone` or through the configured `OWNER_PHONE`.
+
+10. Add real product images through the admin Products page.
+
+Before real customers use it:
+
+- Replace `admin123`.
+- Use HTTPS.
+- Use real DB credentials.
+- Use the real WhatsApp number.
+- Test one full order from menu to WhatsApp.

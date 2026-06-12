@@ -3,6 +3,7 @@ public/uploads/products/*
 !public/uploads/products/README.md
 
 # Local/runtime files
+.env
 *.log
 *.tmp
 temp*

@@ -2,9 +2,15 @@ Options -Indexes
 
 RedirectMatch 302 ^/$ /public/index.php
 
-RedirectMatch 403 ^/(config|database|includes)(/|$)
+RedirectMatch 403 ^/(config|database|includes|scripts)(/|$)
 RedirectMatch 403 /\.git
 
 <FilesMatch "\.(sql|md|log|tmp|env)$">
     Require all denied
 </FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
